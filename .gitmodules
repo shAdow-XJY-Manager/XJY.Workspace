@@ -10,6 +10,10 @@
     path = workspaces/ent/musi/musicListen
     url = https://github.com/shAdow-XJY-Manager/XJY.ENT.MUSI.musicListen.git
 
+[submodule "workspaces/ent/video/tv"]
+    path = workspaces/ent/video/tv
+    url = https://github.com/shAdow-XJY-Manager/XJY.ENT.VIDEO.tv.git
+
 [submodule "workspaces/ent/read/comicRead"]
     path = workspaces/ent/read/comicRead
     url = https://github.com/shAdow-XJY-Manager/XJY.ENT.READ.comicRead.git
@@ -173,4 +177,8 @@
 [submodule "workspaces/util/web/websiteTools"]
     path = workspaces/util/web/websiteTools
     url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.WEB.websiteTools.git
+
+[submodule "pages/shadow-xjy-manager.github.io"]
+    path = pages/shadow-xjy-manager.github.io
+    url = https://github.com/shAdow-XJY-Manager/shadow-xjy-manager.github.io.git
 

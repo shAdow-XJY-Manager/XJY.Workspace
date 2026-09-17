@@ -12,6 +12,9 @@ Thumbs.db
 .vscode/
 .cursor/
 
+# 本地资源目录（文档、笔记等）
+.local_asset/
+
 # 临时迁移脚本
 migrate.sh
 migrate.py

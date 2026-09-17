@@ -16,6 +16,8 @@ workspaces/com/org/
 workspaces/ent/
 ├── musi/
 │   └── musicListen     # XJY.ENT.MUSI.musicListen
+├── video/
+│   └── tv              # XJY.ENT.VIDEO.tv
 └── read/
     ├── comicRead       # XJY.ENT.READ.comicRead
     └── novelRead       # XJY.ENT.READ.novelRead
@@ -94,7 +96,13 @@ workspaces/util/
     └── websiteTools        # XJY.UTIL.WEB.websiteTools
 ```
 
-**总计：44 个子模块**
+### PAGES - 组织主页
+```
+pages/
+└── shadow-xjy-manager.github.io    # 组织 GitHub Pages
+```
+
+**总计：46 个子模块**
 
 ## 🚀 快速开始
 
