@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+.cursor/
+
+# 临时迁移脚本
+migrate.sh
+migrate.py
+
+# 未托管的本地 Godot 项目（暂不入超级仓）
+# 见 README "未纳入管理的项目" 章节
+/workspaces/sys/crea/mapCreator/

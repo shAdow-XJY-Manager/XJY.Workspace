@@ -1,0 +1,176 @@
+[submodule "workspaces/com/org/Community"]
+    path = workspaces/com/org/Community
+    url = https://github.com/shAdow-XJY-Manager/XJY.COM.ORG.Community.git
+
+[submodule "workspaces/com/org/Workers"]
+    path = workspaces/com/org/Workers
+    url = https://github.com/shAdow-XJY-Manager/XJY.COM.ORG.Workers.git
+
+[submodule "workspaces/ent/musi/musicListen"]
+    path = workspaces/ent/musi/musicListen
+    url = https://github.com/shAdow-XJY-Manager/XJY.ENT.MUSI.musicListen.git
+
+[submodule "workspaces/ent/read/comicRead"]
+    path = workspaces/ent/read/comicRead
+    url = https://github.com/shAdow-XJY-Manager/XJY.ENT.READ.comicRead.git
+
+[submodule "workspaces/ent/read/novelRead"]
+    path = workspaces/ent/read/novelRead
+    url = https://github.com/shAdow-XJY-Manager/XJY.ENT.READ.novelRead.git
+
+[submodule "workspaces/game/comp/gameCenter"]
+    path = workspaces/game/comp/gameCenter
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.COMP.gameCenter.git
+
+[submodule "workspaces/game/comp/world_flutter"]
+    path = workspaces/game/comp/world_flutter
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.COMP.world_flutter.git
+
+[submodule "workspaces/game/comp/world_vue"]
+    path = workspaces/game/comp/world_vue
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.COMP.world_vue.git
+
+[submodule "workspaces/game/mario/superMario_QT"]
+    path = workspaces/game/mario/superMario_QT
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.MARIO.superMario_QT.git
+
+[submodule "workspaces/game/mini/findDifferencesGame"]
+    path = workspaces/game/mini/findDifferencesGame
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.MINI.findDifferencesGame.git
+
+[submodule "workspaces/game/mini/flipChess_flutter"]
+    path = workspaces/game/mini/flipChess_flutter
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.MINI.flipChess_flutter.git
+
+[submodule "workspaces/game/mini/parkourGame"]
+    path = workspaces/game/mini/parkourGame
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.MINI.parkourGame.git
+
+[submodule "workspaces/game/mini/rockPaperScissors"]
+    path = workspaces/game/mini/rockPaperScissors
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.MINI.rockPaperScissors.git
+
+[submodule "workspaces/game/mini/snakeGame"]
+    path = workspaces/game/mini/snakeGame
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.MINI.snakeGame.git
+
+[submodule "workspaces/game/mini/ticTacToe"]
+    path = workspaces/game/mini/ticTacToe
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.MINI.ticTacToe.git
+
+[submodule "workspaces/game/pvz/pvz_flutter"]
+    path = workspaces/game/pvz/pvz_flutter
+    url = https://github.com/shAdow-XJY-Manager/XJY.GAME.PVZ.pvz_flutter.git
+
+[submodule "workspaces/learn/be/backendService"]
+    path = workspaces/learn/be/backendService
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.BE.backendService.git
+
+[submodule "workspaces/learn/be/sqlAPI"]
+    path = workspaces/learn/be/sqlAPI
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.BE.sqlAPI.git
+
+[submodule "workspaces/learn/be/sqlAPI2"]
+    path = workspaces/learn/be/sqlAPI2
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.BE.sqlAPI2.git
+
+[submodule "workspaces/learn/fe/componentPassMessage_vue"]
+    path = workspaces/learn/fe/componentPassMessage_vue
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.FE.componentPassMessage_vue.git
+
+[submodule "workspaces/learn/fe/filePass"]
+    path = workspaces/learn/fe/filePass
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.FE.filePass.git
+
+[submodule "workspaces/learn/fe/filePass2"]
+    path = workspaces/learn/fe/filePass2
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.FE.filePass2.git
+
+[submodule "workspaces/learn/fe/jsCoding"]
+    path = workspaces/learn/fe/jsCoding
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.FE.jsCoding.git
+
+[submodule "workspaces/learn/fe/passData"]
+    path = workspaces/learn/fe/passData
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.FE.passData.git
+
+[submodule "workspaces/learn/fe/routerTrain_vue"]
+    path = workspaces/learn/fe/routerTrain_vue
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.FE.routerTrain_vue.git
+
+[submodule "workspaces/learn/fe/webpack"]
+    path = workspaces/learn/fe/webpack
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.FE.webpack.git
+
+[submodule "workspaces/learn/misc/learnDodgeTheCreeps_GoDot"]
+    path = workspaces/learn/misc/learnDodgeTheCreeps_GoDot
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.learnDodgeTheCreeps_GoDot.git
+
+[submodule "workspaces/learn/misc/xcodeProject"]
+    path = workspaces/learn/misc/xcodeProject
+    url = https://github.com/shAdow-XJY-Manager/XJY.LEARN.xcodeProject.git
+
+[submodule "workspaces/sys/campus/campusPrice"]
+    path = workspaces/sys/campus/campusPrice
+    url = https://github.com/shAdow-XJY-Manager/XJY.SYS.campusPrice.git
+
+[submodule "workspaces/sys/crea/readingReader"]
+    path = workspaces/sys/crea/readingReader
+    url = https://github.com/shAdow-XJY-Manager/XJY.SYS.CREA.readingReader.git
+
+[submodule "workspaces/sys/crea/writingWriter"]
+    path = workspaces/sys/crea/writingWriter
+    url = https://github.com/shAdow-XJY-Manager/XJY.SYS.CREA.writingWriter.git
+
+[submodule "workspaces/sys/second/secondHandHouse_flask"]
+    path = workspaces/sys/second/secondHandHouse_flask
+    url = https://github.com/shAdow-XJY-Manager/XJY.SYS.secondHandHouse_flask.git
+
+[submodule "workspaces/sys/trade/schoolSecondhandApp_flutter"]
+    path = workspaces/sys/trade/schoolSecondhandApp_flutter
+    url = https://github.com/shAdow-XJY-Manager/XJY.SYS.TRADE.schoolSecondhandApp_flutter.git
+
+[submodule "workspaces/sys/trade/schoolSecondhandApp_springBoot"]
+    path = workspaces/sys/trade/schoolSecondhandApp_springBoot
+    url = https://github.com/shAdow-XJY-Manager/XJY.SYS.TRADE.schoolSecondhandApp_springBoot.git
+
+[submodule "workspaces/util/core/blurGlass"]
+    path = workspaces/util/core/blurGlass
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.blurGlass.git
+
+[submodule "workspaces/util/core/clickTextField"]
+    path = workspaces/util/core/clickTextField
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.clickTextField.git
+
+[submodule "workspaces/util/font/fontRegenerated"]
+    path = workspaces/util/font/fontRegenerated
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.FONT.fontRegenerated.git
+
+[submodule "workspaces/util/font/fontToolExe"]
+    path = workspaces/util/font/fontToolExe
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.FONT.fontToolExe.git
+
+[submodule "workspaces/util/font/subFontPackage"]
+    path = workspaces/util/font/subFontPackage
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.FONT.subFontPackage.git
+
+[submodule "workspaces/util/core/listTwoLevel"]
+    path = workspaces/util/core/listTwoLevel
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.listTwoLevel.git
+
+[submodule "workspaces/util/web/browserExtensions"]
+    path = workspaces/util/web/browserExtensions
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.WEB.browserExtensions.git
+
+[submodule "workspaces/util/web/customSearchPage"]
+    path = workspaces/util/web/customSearchPage
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.WEB.customSearchPage.git
+
+[submodule "workspaces/util/web/fakeBrowser"]
+    path = workspaces/util/web/fakeBrowser
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.WEB.fakeBrowser.git
+
+[submodule "workspaces/util/web/websiteTools"]
+    path = workspaces/util/web/websiteTools
+    url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.WEB.websiteTools.git
+
