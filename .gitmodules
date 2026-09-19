@@ -182,3 +182,6 @@
     path = pages/shadow-xjy-manager.github.io
     url = https://github.com/shAdow-XJY-Manager/shadow-xjy-manager.github.io.git
 
+[submodule "workspaces/util/pac/flutter_common"]
+	path = workspaces/util/pac/flutter_common
+	url = https://github.com/shAdow-XJY-Manager/XJY.UTIL.PAC.FlutterCommon.git
