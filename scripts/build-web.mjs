@@ -79,6 +79,14 @@ function detectTech(submodulePath) {
     const pubspec = readFileSync(join(fullPath, 'pubspec.yaml'), 'utf8');
     // 检查是否是 Flutter 项目而非纯 Dart 项目
     if (pubspec.includes('flutter:')) {
+      // 检查是否是 Flutter package (库)
+      const isPackage = pubspec.match(/^name:\s*flutter_common/m) || 
+                        submodulePath.includes('flutter_common');
+      
+      if (isPackage) {
+        return { type: 'flutter-package', isWeb: false };
+      }
+      
       return { type: 'flutter', isWeb: true, buildCmd: 'flutter' };
     }
   }
@@ -113,7 +121,7 @@ function detectTech(submodulePath) {
 function generateBuildCommand(tech, repoName) {
   switch (tech.type) {
     case 'flutter':
-      return `flutter build web --no-web-resources-cdn --release --base-href /${repoName}/`;
+      return `flutter build web --no-web-resources-cdn --release --base-href /${repoName}/ --output=docs/`;
     
     case 'vue-cli':
       // Vue CLI 需要在构建前修改 publicPath，这里返回提示
@@ -156,11 +164,12 @@ function executeBuild(submodulePath, buildCmd, dryRun) {
 /**
  * 主逻辑
  */
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
   const flutterOnly = args.includes('--flutter-only');
   const vueOnly = args.includes('--vue-only');
+  const parallel = args.includes('--parallel');
   
   console.log('[build-web] Scanning web projects in submodules...\n');
   
@@ -169,6 +178,12 @@ function main() {
   
   for (const sm of submodules) {
     const tech = detectTech(sm.path);
+    
+    // Skip Flutter packages (like flutter_common)
+    if (tech.type === 'flutter-package') {
+      console.log(`⏭️  Skipping Flutter package: ${sm.path}`);
+      continue;
+    }
     
     if (!tech.isWeb) continue;
     
@@ -206,29 +221,73 @@ function main() {
     skipped: 0,
   };
   
-  for (const project of webProjects) {
-    console.log(`📦 ${project.path}`);
-    console.log(`   Tech: ${project.tech}`);
-    console.log(`   Repo: ${project.repoName}`);
-    console.log(`   Command: ${project.buildCmd}`);
+  if (parallel && !dryRun) {
+    // Parallel builds
+    console.log('🚀 Building projects in parallel...\n');
     
-    if (project.tech === 'vue-cli') {
-      console.log(`   ⚠️  Vue CLI projects require manual publicPath modification`);
-      console.log(`   ⚠️  Edit vue.config.js to set publicPath: '/${project.repoName}/'`);
-      results.skipped++;
-      continue;
+    const buildPromises = webProjects.map(async (project) => {
+      if (project.tech === 'vue-cli') {
+        return { project, success: false, skipped: true };
+      }
+      
+      return new Promise((resolve) => {
+        const fullPath = join(root, project.path);
+        const child = spawnSync(project.buildCmd, {
+          cwd: fullPath,
+          stdio: 'pipe',
+          shell: true,
+        });
+        
+        resolve({ 
+          project, 
+          success: child.status === 0,
+          skipped: false,
+          output: child.stderr.toString() + child.stdout.toString()
+        });
+      });
+    });
+    
+    const buildResults = await Promise.all(buildPromises);
+    
+    for (const result of buildResults) {
+      console.log(`📦 ${result.project.path}`);
+      if (result.skipped) {
+        console.log(`   ⚠️  Skipped (Vue CLI requires manual setup)`);
+        results.skipped++;
+      } else if (result.success) {
+        console.log(`   ✅ Build successful`);
+        results.success++;
+      } else {
+        console.log(`   ❌ Build failed`);
+        results.failed++;
+      }
     }
-    
-    const result = executeBuild(project.path, project.buildCmd, dryRun);
-    
-    if (result.dryRun) {
-      console.log(`   ✓ Dry-run complete`);
-    } else if (result.success) {
-      console.log(`   ✅ Build successful`);
-      results.success++;
-    } else {
-      console.log(`   ❌ Build failed`);
-      results.failed++;
+  } else {
+    // Sequential builds
+    for (const project of webProjects) {
+      console.log(`📦 ${project.path}`);
+      console.log(`   Tech: ${project.tech}`);
+      console.log(`   Repo: ${project.repoName}`);
+      console.log(`   Command: ${project.buildCmd}`);
+      
+      if (project.tech === 'vue-cli') {
+        console.log(`   ⚠️  Vue CLI projects require manual publicPath modification`);
+        console.log(`   ⚠️  Edit vue.config.js to set publicPath: '/${project.repoName}/'`);
+        results.skipped++;
+        continue;
+      }
+      
+      const result = executeBuild(project.path, project.buildCmd, dryRun);
+      
+      if (result.dryRun) {
+        console.log(`   ✓ Dry-run complete`);
+      } else if (result.success) {
+        console.log(`   ✅ Build successful`);
+        results.success++;
+      } else {
+        console.log(`   ❌ Build failed`);
+        results.failed++;
+      }
     }
   }
   
