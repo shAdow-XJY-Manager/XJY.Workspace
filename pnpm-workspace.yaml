@@ -1,0 +1,7 @@
+# shAdow-XJY Manager 超级仓库
+# 注意：本项目使用 git submodules，不是 pnpm monorepo
+# 此文件仅用于 pnpm 脚本执行，子模块使用各自的包管理器
+
+packages:
+  # 此超级仓库不包含 npm packages，仅用于脚本协调
+  # 子模块使用 Flutter (pub)、npm、Maven、pip 等各自的工具
