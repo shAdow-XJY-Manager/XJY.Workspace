@@ -89,6 +89,8 @@ workspaces/util/
 │   ├── fontRegenerated     # XJY.UTIL.FONT.fontRegenerated
 │   ├── fontToolExe         # XJY.UTIL.FONT.fontToolExe
 │   └── subFontPackage      # XJY.UTIL.FONT.subFontPackage
+├── pac/
+│   └── flutter_common      # XJY.UTIL.PAC.FlutterCommon
 └── web/
     ├── browserExtensions   # XJY.UTIL.WEB.browserExtensions
     ├── customSearchPage    # XJY.UTIL.WEB.customSearchPage
@@ -102,7 +104,7 @@ pages/
 └── shadow-xjy-manager.github.io    # 组织 GitHub Pages
 ```
 
-**总计：46 个子模块**
+**总计：47 个子模块**
 
 ## 🚀 快速开始
 
@@ -226,16 +228,119 @@ XJY.<类别>.<子类别?>.<项目名>
 XJY.GAME.MINI.snakeGame → workspaces/game/mini/snakeGame/
 ```
 
+## 🔧 超级仓库脚本工具
+
+本仓库提供了一系列自动化脚本，简化多子模块的管理和构建。需要 Node.js 20+ 和 pnpm。
+
+### 安装依赖
+
+```bash
+# 安装 pnpm（如果尚未安装）
+npm install -g pnpm
+
+# 或使用 corepack（Node.js 内置）
+corepack enable
+```
+
+### 子模块状态管理
+
+```bash
+# 查看所有子模块状态（分支、未提交、ahead/behind）
+pnpm status
+
+# 检查子模块健康状态（未初始化、未提交、未推送）
+pnpm health
+
+# 验证仓库完整性（.gitmodules vs package.json）
+pnpm check:workspace
+
+# 验证 README.md 与实际子模块一致性
+pnpm check:readme
+
+# 运行所有验证
+pnpm validate
+```
+
+### 批量更新与推送
+
+```bash
+# 更新指定分组的子模块
+pnpm update:com       # 社区与服务
+pnpm update:ent       # 娱乐产品
+pnpm update:game      # 游戏集合
+pnpm update:learn     # 学习项目
+pnpm update:sys       # 系统项目
+pnpm update:util      # 工具组件
+pnpm update:all       # 所有子模块
+
+# 批量推送所有有改动的子模块
+pnpm push:dry-run     # 预览将要执行的推送（安全）
+pnpm push:submodules  # 实际推送
+```
+
+### Web 项目批量构建
+
+```bash
+# 批量构建所有 Web 项目（自动处理 URL 前缀）
+pnpm build:web
+
+# 仅构建 Flutter Web 项目
+pnpm build:web:flutter
+
+# 仅构建 Vue 项目
+pnpm build:web:vue
+
+# 预览构建命令（不实际执行）
+pnpm build:web:dry-run
+```
+
+**自动 URL 前缀处理**：
+
+脚本会根据仓库名自动生成正确的 `base-href` 或 `publicPath`：
+
+- Flutter: `flutter build web --no-web-resources-cdn --release --base-href /XJY.ENT.READ.novelRead/`
+- Vite: `vite build --base=/XJY.UTIL.WEB.customSearchPage/`
+- CRA: `PUBLIC_URL=/XJY.LEARN.FE.passData npm run build`
+- Vue CLI: 需要手动修改 `vue.config.js` 中的 `publicPath`
+
+### 技术栈统计
+
+```bash
+# 列出所有子模块及其技术栈
+pnpm tech:list
+
+# 查看技术栈分布统计
+pnpm tech:stats
+```
+
+### 脚本文件说明
+
+所有脚本位于 `scripts/` 目录：
+
+- `check-workspace.mjs` - 验证子模块完整性
+- `submodule-status.mjs` - 查看所有子模块状态
+- `check-submodule-health.mjs` - 检查健康状态
+- `submodule-push.sh` - 批量推送子模块
+- `build-web.mjs` - 批量构建 Web 项目
+- `check-readme-sync.mjs` - 验证文档同步
+- `list-technologies.mjs` - 技术栈扫描
+
 ## 🔧 常见问题
 
 ### Q: 子模块显示 "modified" 但没有改动？
 A: 可能是换行符或文件权限问题。在子模块目录运行 `git diff` 查看具体差异。
 
 ### Q: 如何同时拉取多个子模块的更新？
-A: 使用 `git submodule update --remote --merge` 或 `git submodule foreach 'git pull origin main'`
+A: 使用 `pnpm update:all` 或手动运行 `git submodule update --remote --merge`
 
 ### Q: 克隆后子模块目录是空的？
-A: 运行 `git submodule update --init --recursive`
+A: 运行 `git submodule update --init --recursive` 或使用 `git clone --recursive`
+
+### Q: 如何批量构建所有 Flutter Web 项目？
+A: 运行 `pnpm build:web:flutter`，脚本会自动处理每个项目的 `base-href` 参数
+
+### Q: 脚本提示 pnpm 未安装？
+A: 运行 `npm install -g pnpm` 或使用 `corepack enable`（Node.js 16.9+）
 
 ## 📄 许可证
 
