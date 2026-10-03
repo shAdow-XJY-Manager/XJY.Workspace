@@ -124,7 +124,7 @@ function main() {
     process.exit(1);
   }
   
-  console.log(`✅ All ${submodules.length} submodules are properly configured and initialized.`);
+  console.log(`✅ All ${submodules.length} submodules are configured and their directories are present.`);
   console.log(`✅ package.json workspaceGroups matches .gitmodules (${expectedPaths.size} entries).`);
 }
 

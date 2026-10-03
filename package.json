@@ -28,9 +28,13 @@
     "build:web:dry-run": "node scripts/build-web.mjs --dry-run",
     "check:workspace": "node scripts/check-workspace.mjs",
     "check:readme": "node scripts/check-readme-sync.mjs",
-    "validate": "pnpm run check:workspace && pnpm run check:readme && pnpm run health",
+    "validate": "pnpm run check:workspace && pnpm run check:readme && pnpm run test:build-web && pnpm run check:artifacts && pnpm run health",
     "tech:list": "node scripts/list-technologies.mjs",
-    "tech:stats": "node scripts/list-technologies.mjs --stats"
+    "tech:stats": "node scripts/list-technologies.mjs --stats",
+    "test:build-web": "node scripts/build-web.test.mjs",
+    "ignore:preview": "node scripts/configure-local-excludes.mjs",
+    "ignore:apply": "node scripts/configure-local-excludes.mjs --apply",
+    "check:artifacts": "node scripts/check-artifacts.mjs"
   },
   "workspaceGroups": {
     "com": {
@@ -94,5 +98,39 @@
     "pages": {
       "shadow-xjy-manager.github.io": "shadow-xjy-manager.github.io"
     }
+  },
+  "flutterTargets": {
+    "web": [
+      "pages/shadow-xjy-manager.github.io",
+      "workspaces/ent/read/novelRead",
+      "workspaces/ent/read/comicRead",
+      "workspaces/ent/musi/musicListen",
+      "workspaces/game/comp/gameCenter",
+      "workspaces/game/comp/world_flutter",
+      "workspaces/game/mini/findDifferencesGame",
+      "workspaces/game/mini/flipChess_flutter",
+      "workspaces/game/mini/parkourGame",
+      "workspaces/game/mini/rockPaperScissors",
+      "workspaces/game/mini/snakeGame",
+      "workspaces/game/mini/ticTacToe",
+      "workspaces/game/pvz/pvz_flutter",
+      "workspaces/util/web/websiteTools",
+      "workspaces/util/web/customSearchPage"
+    ],
+    "native": [
+      "workspaces/ent/video/tv",
+      "workspaces/learn/be/backendService",
+      "workspaces/sys/campus/campusPrice/campusprice_flutter",
+      "workspaces/sys/crea/readingReader",
+      "workspaces/sys/crea/writingWriter",
+      "workspaces/sys/trade/schoolSecondhandApp_flutter",
+      "workspaces/util/font/subFontPackage",
+      "workspaces/util/web/fakeBrowser"
+    ],
+    "examples": [
+      "workspaces/util/core/blurGlass/example",
+      "workspaces/util/core/clickTextField/example",
+      "workspaces/util/core/listTwoLevel/example"
+    ]
   }
 }

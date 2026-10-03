@@ -22,3 +22,68 @@ migrate.py
 # 未托管的本地 Godot 项目（暂不入超级仓）
 # 见 README "未纳入管理的项目" 章节
 /workspaces/sys/crea/mapCreator/
+
+# manager-process-artifacts:start
+# 过程资料放这些目录；运行 assets 与 docs 部署目录保留版本管理资格。
+.local_asset/
+.local_assets/
+local_assets/
+.process/
+.artifacts/
+.design/
+design/
+concepts/
+.research/
+research/
+.reports/
+reports/
+.screenshots/
+screenshots/
+.logs/
+logs/
+.tmp/
+.codebase-memory/
+.deploy-*/
+node_modules/
+*.log
+BUILD.md
+FLUTTER_WEB_PROJECTS_STATUS.md
+*.pdf
+*.docx
+*.pptx
+*.psd
+*.fig
+*.sketch
+*.zip
+*.7z
+*.rar
+*.dmg
+*.iso
+# 运行时资源与部署产物可包含上述格式；仍需按用途审查。
+!**/assets/**
+!**/fonts/**
+!**/images/**
+!**/static/**
+!**/public/**
+!**/*.xcassets/**
+!**/docs/**
+# 过程目录不能因位于运行目录内而重新纳入。
+**/.local_asset/**
+**/.local_assets/**
+**/local_assets/**
+**/.process/**
+**/.artifacts/**
+**/.design/**
+**/design/**
+**/concepts/**
+**/.research/**
+**/research/**
+**/.reports/**
+**/reports/**
+**/.screenshots/**
+**/screenshots/**
+**/.logs/**
+**/logs/**
+**/.tmp/**
+**/.deploy-*/**
+# manager-process-artifacts:end
