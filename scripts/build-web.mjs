@@ -6,6 +6,8 @@ import { basename, dirname, isAbsolute, join, relative, resolve, sep } from 'nod
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+// This product retains historical Flutter files, but ships from native/ via npm.
+const nativeSearchPath = 'workspaces/util/web/customSearchPage';
 
 /**
  * 解析 .gitmodules 获取所有子模块
@@ -141,6 +143,7 @@ export function discoverProjects(workspaceRoot = root) {
 
 export function webBuildReason(project, options = {}) {
   if (project.type === 'flutter') {
+    if (project.path === nativeSearchPath) return 'legacy Flutter build disabled: migrated to native/; run npm run build -- web in workspaces/util/web/customSearchPage (output: build/web)';
     if (project.intent === 'native') return 'native application; Web scaffold does not authorize Web publication';
     if (!['web', 'native', 'examples'].includes(project.intent)) return 'no explicit Flutter target intent in package.json';
     if (project.intent === 'examples' && options.project !== project.path) return 'component example; requires an explicit --project';
@@ -329,7 +332,7 @@ function main() {
     if (reason || !buildCommand(project, 'preview', options.baseHref, options.cname)) {
       console.log(`[skip] ${project.path}: ${reason || 'unsupported build command'}`);
       skipped++;
-      if (options.project || project.intent === 'web') failed++;
+      if (options.project || (project.intent === 'web' && project.path !== nativeSearchPath)) failed++;
       continue;
     }
     for (const warning of cnameWarnings(project)) console.warn(`[warning] ${project.path}: ${warning}`);

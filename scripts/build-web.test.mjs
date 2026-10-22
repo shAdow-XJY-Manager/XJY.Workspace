@@ -59,6 +59,17 @@ try {
   file(join(docs, 'index.html'), 'old deployment');
   file(join(docs, 'CNAME'), 'custom.example\n');
   file(join(docs, '.nojekyll'));
+  const nativeSearchPath = 'workspaces/util/web/customSearchPage';
+  const migratedSearch = { ...project, path: nativeSearchPath };
+  assert.match(webBuildReason(migratedSearch), /legacy Flutter build disabled.*npm run build -- web/);
+  for (const options of [
+    { outputRoot, dryRun: true },
+    { outputRoot, project: nativeSearchPath },
+    { outputRoot, project: nativeSearchPath, updateDocs: true, cname: null },
+  ]) {
+    assert.throws(() => executeBuild(migratedSearch, options, () => { throw Error('legacy search build spawned'); }), /legacy Flutter build disabled.*npm run build -- web/);
+    assert.equal(readFileSync(join(docs, 'index.html'), 'utf8'), 'old deployment', 'legacy search rejection must preserve docs');
+  }
   assert.equal(baseHref(project), '/');
   // Reproduce the actual Manager layout: portal domain repeated in seven project repositories.
   const portal = join(root, 'pages/shadow-xjy-manager.github.io');
@@ -182,8 +193,26 @@ try {
     'workspaces/util/web/customSearchPage'];
   assert.deepEqual([...configured.web].sort(), [...expectedWeb].sort());
   assert.equal(configured.native.length, 8);
+  const productionTv = production.find(p => p.path === 'workspaces/ent/video/tv');
+  assert.equal(productionTv.intent, 'native');
+  assert.equal(existsSync(join(productionTv.repoRoot, 'docs')), false, 'Android TV must not retain a Web deployment');
   assert.equal(configured.examples.length, 3);
-  assert.deepEqual(production.filter(p => p.type === 'flutter' && !webBuildReason(p)).map(p => p.path).sort(), [...expectedWeb].sort());
+  const expectedFlutterWeb = expectedWeb.filter(path => path !== nativeSearchPath);
+  assert.deepEqual(production.filter(p => p.type === 'flutter' && !webBuildReason(p)).map(p => p.path).sort(), expectedFlutterWeb.sort());
+  const productionSearch = production.find(p => p.path === nativeSearchPath);
+  assert.equal(productionSearch.type, 'flutter', 'historical pubspec detection remains unchanged');
+  assert.equal(productionSearch.intent, 'web', 'the existing product classification remains unchanged');
+  assert.match(webBuildReason(productionSearch), /native\/.*npm run build -- web.*build\/web/);
+  const script = fileURLToPath(new URL('./build-web.mjs', import.meta.url));
+  const batch = spawnSync(process.execPath, [script, '--flutter-only', '--dry-run', '--output-root', outputRoot], { encoding: 'utf8' });
+  assert.equal(batch.status, 0, batch.stderr);
+  assert.ok(batch.stdout.includes(`[skip] ${nativeSearchPath}: legacy Flutter build disabled`));
+  assert.ok(!batch.stdout.includes(`[dry-run] ${nativeSearchPath}\n`));
+  assert.match(batch.stdout, /planned=14 failed=0/);
+  const explicitSearch = spawnSync(process.execPath, [script, '--project', nativeSearchPath, '--dry-run', '--output-root', outputRoot], { encoding: 'utf8' });
+  assert.equal(explicitSearch.status, 1);
+  assert.match(explicitSearch.stdout, /npm run build -- web/);
+  assert.match(explicitSearch.stdout, /planned=0 failed=1 skipped=1/);
   assert.ok(production.filter(p => p.intent === 'native').every(p => /native application/.test(webBuildReason(p))));
-  console.log('PASS: 15 Web products, native scaffold boundaries, manual examples, discovery, shared/independent domains and CNAME precedence, base paths, argument safety, output isolation, dry-run, failure preservation, explicit deployment, process boundaries and large-file gate');
+  console.log('PASS: 14 Flutter Web builds, native search rollback guard, native scaffold boundaries, manual examples, discovery, shared/independent domains and CNAME precedence, base paths, argument safety, output isolation, dry-run, failure preservation, explicit deployment, process boundaries and large-file gate');
 } finally { rmSync(fixture, { recursive: true, force: true }); }

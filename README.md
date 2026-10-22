@@ -126,11 +126,13 @@ node scripts/build-web.mjs --project workspaces/util/core/blurGlass/example --dr
 node scripts/build-web.test.mjs
 ```
 
+`customSearchPage` 已迁移为 `native/` 原生网页，保留的 pubspec / Flutter 文件只用于历史参考。根批量构建跳过该项目，显式用根脚本构建也会拒绝并提示正确入口；请在 `workspaces/util/web/customSearchPage` 执行 `npm run build -- web`，使用生成的 `build/web/` 预览及更新部署。现有 15 项 Web 产品登记不变，其中 14 项由根脚本构建 Flutter，搜索页使用独立的 npm 流程，避免后续将 native 部署覆盖回旧版。
+
 - 当前验证工具链为 Flutter **3.47.6** / Dart **3.13.5**；各 pubspec 的最低约束为 Dart `>=3.9.2 <4.0.0`、Flutter `>=3.35.0`。升级后的 lock 由较新 SDK 解析；若切换到满足约束的较旧 SDK，先在对应项目重新 `flutter pub get`，不要沿用新 SDK 的解析缓存直接 `--no-pub` 构建。Flutter/pub 仍需由唯一 SDK 执行负责人串行调用。
 - 发布用途以根 `package.json.flutterTargets` 为准：`web` 为默认批量 Web 产品，`native` 保留桌面/移动/本地用途，`examples` 仅用于单项目组件验证。标准 web 目录、index 或默认 scaffold 只代表已有平台文件，不能据此授权 Web 发布；未配置的新 Flutter 应用同样跳过。
 - 默认公用 Web 产品共 **15 项**：组织门户；novelRead、comicRead、musicListen；gameCenter、world_flutter、findDifferencesGame、flipChess_flutter、parkourGame、rockPaperScissors、snakeGame、ticTacToe、pvz_flutter 这 9 个游戏；websiteTools、customSearchPage。完整运行路径由 `flutterTargets.web` 维护。
 - 当前 15 个 Web 产品均保留 Web 平台，原生平台目录已由 Flutter 专用负责人外置归档后收敛：14 个项目的 Android/iOS/Linux/macOS/Windows 共 70 个目录已备份移出，customSearchPage 原本仅有 Web。8 个 native 应用与 3 个 example 保留各自已有平台，4 个库保持原边界；根构建脚本不会创建、删除或迁移平台目录。Flutter/Dart 环境约束以各子仓的 pubspec.yaml 为准。
-- **8 个 native 应用**继续按原用途升级验证：tv（Android TV）、backendService（本地服务）、campusPrice/campusprice_flutter（原生客户端）、readingReader/writingWriter（本地工具）、schoolSecondhandApp_flutter（移动应用）、subFontPackage（桌面工具）、fakeBrowser（本地浏览器）。它们即使保留 web scaffold 或旧 partial docs，也不会进入批量 Web 构建；本脚本连显式 `--project` 的 Web 构建也会拒绝。保留原平台目录、旧 docs 与 CNAME，不将升级等同于转 Web。
+- **8 个 native 应用**继续按原用途升级验证：tv（Android TV）、backendService（本地服务）、campusPrice/campusprice_flutter（原生客户端）、readingReader/writingWriter（本地工具）、schoolSecondhandApp_flutter（移动应用）、subFontPackage（桌面工具）、fakeBrowser（本地浏览器）。它们即使保留 web scaffold 或旧 partial docs，也不会进入批量 Web 构建；本脚本连显式 `--project` 的 Web 构建也会拒绝。保留原平台目录，不将升级等同于转 Web。TV 的旧 `docs/` 已明确删除并禁止再发布；门户只保留 Android TV 原生用途说明，不提供在线入口。其他历史原生项目的残缺 docs 不据此成为 Web 产品。
 - native 项目按实际目标分别验证：backendService、subFontPackage、fakeBrowser 的当前 macOS 构建下限为 **macOS 12+**。Android 项目保留 `flutter.minSdkVersion` 动态下限；当前 SDK 对应 API **24**，Trade 的最终候选也预期为 API 24，最终值须核对实际 APK manifest。保留平台、pub get 成功、某一平台构建通过，都不代表全部桌面/移动平台已完成 release 验证。
 - blurGlass、clickTextField、listTwoLevel 的 example 仅通过明确 `--project` 才能在现有 Web 平台上验证；不属于公开 Web 产品，拒绝 `--update-docs`。Flutter 库本身跳过。`.metadata`、SDK 依赖、`lib/main.dart`、`web/index.html` 只用于检查类型和运行入口；扫描子仓根及有 pubspec 的一级目录，包括 campusPrice 的嵌套原生应用。
 - 配置中的应用缺失或用途重复会报错，避免默默漏构建。构建脚本不自动创建平台、不改 pubspec、不安装依赖；先在对应仓库准备工具链和依赖。
@@ -190,7 +192,7 @@ pnpm 的 `update:com/ent/game/learn/sys/util/pages` 与 `update:all` 同样属�
 | --- | --- |
 | `status` / `health` | 本地子仓状态与健康检查 |
 | `check:workspace` / `check:readme` | 配置映射、47 项导航同步检查 |
-| `build:web` / `build:web:flutter` | 按明确用途外置串行构建 15 个 Flutter Web 产品，默认不更新部署 |
+| `build:web` / `build:web:flutter` | 按明确用途外置串行构建 14 个 Flutter Web 产品；跳过已迁移的原生搜索，默认不更新部署 |
 | `build:web:dry-run` | 预览所有目标与跳过原因 |
 | `test:build-web` | Node 回归验证，不执行 Flutter |
 | `ignore:preview` / `ignore:apply` | 预览/同步各仓本地过程目录边界 |
